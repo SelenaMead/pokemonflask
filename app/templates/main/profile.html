@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<h1>Pick your Pokemon!</h1>
+<form method="POST" action="{{ url_for('pokemon_page') }}">
+    <div class="form-group">
+        <div class="row">
+            <div class="col-6">
+                <input type="text" class="form-control" name="pokemon_name" id="pokemon_name" aria-describedby="helpId" placeholder="Pokemon Name">
+            </div>
+        </div>
+    </div>
+    <input type="submit" class="btn btn-info btn-block" value="Catch" />
+    </form>
+<hr />
+
+<div class="row">
+    <div class="col-12">
+        <ul class="list-group">
+            {% for pokemon in pokemons %}
+                <li class="list-group-item mb-4">
+                    {{ pokemon.name }}
+                    <p>
+                        {{ pokemon.type}} {{pokemon.description}}
+                    </p>
+                    <div>
+                        <small>
+                            &mdash; {{ pokemon.owner.first_name }} {{ pokemon.owner.last_name }}
+                            <span class="float-right">
+                                {{ moment(pokemon.date_created).fromNow() }}
+                            </span>
+                        </small>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+{% endblock content %}

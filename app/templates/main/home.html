@@ -1,0 +1,41 @@
+   
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<h2>
+    {% if current_user.is_authenticated %}
+        Hello, {{ current_user.first_name }} {{ current_user.last_name }}
+    {% else %}
+        Welcome
+    {% endif %}
+</h2>
+<hr />
+
+
+<hr />
+
+<div class="row">
+    <div class="col-12">
+        <ul class="list-group"></ul>
+        {% for pokemon in pokemons %}
+        <li class="list-group-item mb-4">
+            {{ pokemon.name }}
+            <p>
+                {{ pokemon.type}} {{pokemon.description}}
+            </p>
+            <div>
+                <small>
+                    &mdash; {{ pokemon.owner.first_name }} {{ pokemon.owner.last_name }}
+                    <span class="float-right">
+                        {{ moment(pokemon.date_created).fromNow() }}
+                    </span>
+                </small>
+            </div>
+        </li>
+    {% endfor %}
+        </ul>
+    </div>
+</div>
+
+{% endblock content %}
